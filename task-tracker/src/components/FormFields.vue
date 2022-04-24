@@ -14,32 +14,59 @@
       </div>
 
       <div class="column">
-        <section>
-          <strong>00:00:00</strong>
-        </section>
+        <div
+          class="is-flex is-align-items-center is-justify-content-space-between"
+        >
+          <section>
+            <strong>{{runnedTime}}</strong>
+          </section>
 
-        <button class="button">
-          <span class="icon">
-            <i class="fas fa-play"></i>
-          </span>
-          <span>Play</span>
-        </button>
+          <button class="button" @click="initializeCount">
+            <span class="icon">
+              <i class="fas fa-play"></i>
+            </span>
+            <span>Play</span>
+          </button>
 
-        <button class="button">
-          <span class="icon">
-            <i class="fas fa-stop"></i>
-          </span>
-          <span>Stop</span>
-        </button>
-
+          <button class="button" @click="finalizeCount">
+            <span class="icon">
+              <i class="fas fa-stop"></i>
+            </span>
+            <span>Stop</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue'
+import { defineComponent } from "vue";
 export default defineComponent({
-    name: 'FormFields'
-})
+  name: "FormFields",
+  data (){
+    return {
+      timeAsSeconds:0,
+      cronometer:0
+    }
+  },
+  computed:{
+    runnedTime() : string {
+      return  new Date(this.timeAsSeconds * 1000).toISOString().substr(11,8);
+    }
+  },
+  methods: {
+    initializeCount(){
+      setInterval(() =>{
+        this.cronometer = this.timeAsSeconds += 1
+        //console.log('Incrementando o contador');
+      },1000)
+      //console.log('iniciando contagem.');
+    },
+    finalizeCount(){
+      //console.log('finalizando contagem.');
+      clearInterval(this.cronometer)
+    }
+  }
+});
 </script>
