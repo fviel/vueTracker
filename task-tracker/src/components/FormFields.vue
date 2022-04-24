@@ -10,11 +10,12 @@
           type="Text"
           class="input"
           placeholder="Qual tarefa você deseja iniciar?"
+          v-model="taskDescription"
         />
       </div>
 
       <div class="column">
-        <ChronometerControls />
+        <ChronometerControls @toStoppedChronometer="endTask"/>
       </div>
     </div>
   </div>
@@ -28,6 +29,17 @@ export default defineComponent({
   components: {
     ChronometerControls
   },
-  
+  data(){
+    return {
+      taskDescription : ''
+      }
+  }, 
+  methods:{
+    endTask(timeAsSeconds: number) : void{
+      console.log('Tempo decorrido da tarefa: ', timeAsSeconds)
+      console.log('Descrição da tarefa: ', this.taskDescription)
+      this.taskDescription = ''
+    }
+  }   
 });
 </script>

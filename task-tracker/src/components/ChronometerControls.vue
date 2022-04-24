@@ -6,30 +6,35 @@
          </section>-->
     <ChronometerDisplay :timeAsSeconds="timeAsSeconds" />
 
-    <button class="button" @click="initializeCount" :disabled="cronoIsRunning">
+    <!-- <button class="button" @click="initializeCount" :disabled="cronoIsRunning">
       <span class="icon">
         <i class="fas fa-play"></i>
       </span>
       <span>Play</span>
-    </button>
-
+    </button> 
+    
     <button class="button" @click="finalizeCount" :disabled="!cronoIsRunning">
       <span class="icon">
         <i class="fas fa-stop"></i>
       </span>
       <span>Stop</span>
-    </button>
+    </button> -->
+    <ChronometerButton @click="initializeCount" customIcon="fas fa-play" customLabel="play" :isDisabled="cronoIsRunning" />
+    <ChronometerButton @click="finalizeCount" customIcon="fas fa-stop" customLabel="stop" :isDisabled="!cronoIsRunning" />
   </div>
 </template>
 
 <script lang='ts'>
 import { defineComponent } from 'vue'
 import ChronometerDisplay from './ChronometerDisplay.vue'
+import ChronometerButton from './ChronometerButton.vue'
 
 export default defineComponent({
   name: 'ChronometerControls',
+  emits: ['toStoppedChronometer'],
   components: {
-    ChronometerDisplay
+    ChronometerDisplay,
+    ChronometerButton
   },
   data (){
     return {
@@ -44,14 +49,15 @@ export default defineComponent({
       this.cronoIsRunning=true
       setInterval(() =>{
         this.cronometer = this.timeAsSeconds += 1
-        //console.log('Incrementando o contador');
       },1000)
-      //console.log('iniciando contagem.');
     },
-    finalizeCount(){
+
+    finalizeCount(){      
       this.cronoIsRunning = false
       //console.log('finalizando contagem.');
       clearInterval(this.cronometer)
+      this.$emit('toStoppedChronometer', this.timeAsSeconds)
+      this.timeAsSeconds = 0
     }
   }
 })
