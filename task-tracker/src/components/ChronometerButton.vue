@@ -12,7 +12,7 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "ChronometerButton",
-  emits: ['toStoppedChronometer'],
+  emits: ['clicado'],
   props: {
     isDisabled: {
       type: Boolean
@@ -28,7 +28,8 @@ export default defineComponent({
   },
   methods: {
     eventoClick () : void {
-      this.$emit('toStoppedChronometer')      
+      console.log('clicado')
+      this.$emit('clicado')      
     }
   }
 });

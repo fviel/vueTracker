@@ -19,8 +19,10 @@
       </span>
       <span>Stop</span>
     </button> -->
-    <ChronometerButton @click="initializeCount" customIcon="fas fa-play" customLabel="play" :isDisabled="cronoIsRunning" />
-    <ChronometerButton @click="finalizeCount" customIcon="fas fa-stop" customLabel="stop" :isDisabled="!cronoIsRunning" />
+    <!-- o @click quer dizer: ao receber o evento @click, execute a função X 
+    Mas a complexidade aqui é grande, pois o ChronometerButton escuta o evento 'clicado', e quando o recebe, passa o nome da função a ser aplicado no seu método click-->
+    <ChronometerButton @clicado="initializeCount" customIcon="fas fa-play" customLabel="play" :isDisabled="cronoIsRunning" />
+    <ChronometerButton @clicado="finalizeCount" customIcon="fas fa-stop" customLabel="stop" :isDisabled="!cronoIsRunning" />
   </div>
 </template>
 
@@ -31,7 +33,7 @@ import ChronometerButton from './ChronometerButton.vue'
 
 export default defineComponent({
   name: 'ChronometerControls',
-  emits: ['toStoppedChronometer'],
+  //emits: ['toStoppedChronometer'],
   components: {
     ChronometerDisplay,
     ChronometerButton
@@ -56,7 +58,8 @@ export default defineComponent({
       this.cronoIsRunning = false
       //console.log('finalizando contagem.');
       clearInterval(this.cronometer)
-      this.$emit('toStoppedChronometer', this.timeAsSeconds)
+      // emite um evento
+      //this.$emit('toStoppedChronometer', this.timeAsSeconds)
       this.timeAsSeconds = 0
     }
   }
