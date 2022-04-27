@@ -1,14 +1,16 @@
 <template>
   <div class="box has-text-weight-bold">
-    <div class="column is-7">Descrição da tarefa</div>
-    <div class="column is-1">
-      <ChronometerDisplay :timeAsSeconds="15" />
+    <div class="column is-7">Descrição: {{task.description}} </div>
+    <div class="column">
+      <ChronometerDisplay :timeAsSeconds="task.timeAsSeconds" />
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+// importa o proptype para poder declarar que meu object é do tipo itask
+import { defineComponent, PropType } from "vue";
+import ITask from "../interfaces/ITask";
 import ChronometerDisplay from "./ChronometerDisplay.vue";
 
 export default defineComponent({
@@ -16,6 +18,12 @@ export default defineComponent({
   components: {
     ChronometerDisplay,
   },
+  props:{
+      task:{
+          type: Object as PropType<ITask>,
+          required: true
+      }
+  }
 });
 </script>
 

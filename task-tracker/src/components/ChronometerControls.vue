@@ -33,7 +33,7 @@ import ChronometerButton from './ChronometerButton.vue'
 
 export default defineComponent({
   name: 'ChronometerControls',
-  //emits: ['toStoppedChronometer'],
+  emits: ['toStoppedChronometer'],
   components: {
     ChronometerDisplay,
     ChronometerButton
@@ -56,10 +56,11 @@ export default defineComponent({
 
     finalizeCount(){      
       this.cronoIsRunning = false
-      //console.log('finalizando contagem.');
+      console.log('finalizando contagem.');
       clearInterval(this.cronometer)
+      this.cronometer = 0
       // emite um evento
-      //this.$emit('toStoppedChronometer', this.timeAsSeconds)
+      this.$emit('toStoppedChronometer', this.timeAsSeconds)
       this.timeAsSeconds = 0
     }
   }

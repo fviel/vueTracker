@@ -8,7 +8,7 @@
       <!-- > body da tela<!-->
       <FormFields @whenSavingATask="persistTask"/>
       <div class="listaTarefas">
-          <TrackedTask v-for="(task, index) in tasks" :key="index"/>
+          <TrackedTask v-for="(task, index) in tasks" :key="index" :task="task"  />
       </div>
     </div>
   </main>
