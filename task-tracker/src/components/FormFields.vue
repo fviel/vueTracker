@@ -15,7 +15,7 @@
       </div>
 
       <div class="column">
-        <ChronometerControls @toStoppedChronometer="endTask"/>
+        <ChronometerControls @toStoppedChronometer="endTask" />
       </div>
     </div>
   </div>
@@ -23,23 +23,28 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-import ChronometerControls from './ChronometerControls.vue'
+import ChronometerControls from "./ChronometerControls.vue";
 export default defineComponent({
   name: "FormFields",
+  emits: ["whenSavingATask"],
   components: {
-    ChronometerControls
+    ChronometerControls,
   },
-  data(){
+  data() {
     return {
-      taskDescription : ''
-      }
-  }, 
-  methods:{
-    endTask(timeAsSeconds: number) : void{
-      console.log('Tempo decorrido da tarefa: ', timeAsSeconds)
-      console.log('Descrição da tarefa: ', this.taskDescription)
-      this.taskDescription = ''
-    }
-  }   
+      taskDescription: "",
+    };
+  },
+  methods: {
+    endTask(timeAsSeconds: number): void {
+      console.log("Tempo decorrido da tarefa: ", timeAsSeconds);
+      console.log("Descrição da tarefa: ", this.taskDescription);
+      this.$emit("whenSavingATask", {
+        durationInSeconds: timeAsSeconds,
+        description: this.taskDescription,
+      });
+      this.taskDescription = "";
+    },
+  },
 });
 </script>
