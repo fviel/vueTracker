@@ -35,6 +35,8 @@ export default defineComponent({
   },
   methods:{
     persistTask(task: ITask){
+      console.log('Duracao da task:', task.durationInSeconds)
+      console.log('Descricao da task:', task.description)
       this.tasks.push(task);
     }
   }

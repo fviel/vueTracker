@@ -42,22 +42,25 @@ export default defineComponent({
     return {
       timeAsSeconds:0,
       cronometer:0,
-      cronoIsRunning: false
+      cronoIsRunning: false,
+      intervalId: 0
     }
   },
   
   methods: {
+    addSecondsToChronometer(){
+      this.cronometer = this.timeAsSeconds += 1
+    },
+
     initializeCount(){
       this.cronoIsRunning=true
-      setInterval(() =>{
-        this.cronometer = this.timeAsSeconds += 1
-      },1000)
-    },
+      this.intervalId = setInterval(this.addSecondsToChronometer,1000)
+    },    
 
     finalizeCount(){      
       this.cronoIsRunning = false
       console.log('finalizando contagem.');
-      clearInterval(this.cronometer)
+      clearInterval(this.intervalId)
       this.cronometer = 0
       // emite um evento
       this.$emit('toStoppedChronometer', this.timeAsSeconds)
