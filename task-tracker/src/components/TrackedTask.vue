@@ -1,10 +1,14 @@
 <template>
-  <div class="box has-text-weight-bold">
-    <div class="column is-7">Descrição: {{task.description}} </div>
-    <div class="column">
-      <ChronometerDisplay :timeAsSeconds="task.durationInSeconds" />
+  <TaskBox>
+    <div class="columns">
+      <div class="column is-7">
+        Descrição: {{ task.description || "Não possui descrição" }}
+      </div>
+      <div class="column">
+        <ChronometerDisplay :timeAsSeconds="task.durationInSeconds" />
+      </div>
     </div>
-  </div>
+  </TaskBox>
 </template>
 
 <script lang="ts">
@@ -12,26 +16,19 @@
 import { defineComponent, PropType } from "vue";
 import ITask from "../interfaces/ITask";
 import ChronometerDisplay from "./ChronometerDisplay.vue";
+import TaskBox from './TaskBox.vue'
 
 export default defineComponent({
   name: "TrackedTask",
   components: {
     ChronometerDisplay,
+    TaskBox
   },
-  props:{
-      task:{
-          type: Object as PropType<ITask>,
-          required: true
-      }
-  }
+  props: {
+    task: {
+      type: Object as PropType<ITask>,
+      required: true,
+    },
+  },
 });
 </script>
-
-
-<!-- estilo escopado quer dizer que somente se aplica a este componente ao para os filhos dele -->
-<style scoped>
-.box {
-  background: #fffde8;
-}
-</style>
-
