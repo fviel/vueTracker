@@ -2,7 +2,7 @@
   <div class="box has-text-weight-bold">
     <div class="column is-7">Descrição: {{task.description}} </div>
     <div class="column">
-      <ChronometerDisplay :timeAsSeconds="task.timeAsSeconds" />
+      <ChronometerDisplay :timeAsSeconds="task.durationInSeconds" />
     </div>
   </div>
 </template>
