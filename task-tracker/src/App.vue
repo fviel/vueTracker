@@ -1,10 +1,10 @@
 <template>
-  <main class="columns is-gapless is-multiline">
+  <main class="columns is-gapless is-multiline" :class="{ 'modo-escuro': modoEscuroAtivoLocal }">
     <div class="column is-one-quarter">
       <!-- > menu lateral<!-->
-      <SideBarMenu />
+      <SideBarMenu @toChangeTheTheme="changeThemeColor"/>
     </div>
-    <div class="column is-three-quarter">
+    <div class="column is-three-quarter conteudo">
       <!-- > body da tela<!-->
       <FormFields @whenSavingATask="persistTask" />
       <div class="listaTarefas">
@@ -34,20 +34,25 @@ export default defineComponent({
   data() {
     return {
       tasks: [] as ITask[],
+      modoEscuroAtivoLocal: false
     };
   },
   computed:{
     taskListisEmpty() : boolean{
       return this.tasks.length === 0
     }
-
   },
-  methods: {
+    methods: {
     persistTask(task: ITask) {
       // console.log('persistTask - Duracao da task:', task.durationInSeconds)
       // console.log('persistTask - Descricao da task:', task.description)
       this.tasks.push(task);
     },
+    changeThemeColor(modoEscuroAtivo: boolean){
+      
+      this.modoEscuroAtivoLocal = modoEscuroAtivo
+      console.log('modoEscuroAtivoLocal: ', this.modoEscuroAtivoLocal)
+    }
   },
 });
 </script>
@@ -55,5 +60,18 @@ export default defineComponent({
 <style>
 .listaTarefas {
   padding: 1.25rem;
+}
+
+main{
+  --bg-primario: #fff;
+  --texto-primario: #000;
+}
+
+main.modo-escuro{
+  --bg-primario: rgb(4, 1, 44);
+  --texto-primario: #fff;
+}
+.conteudo{
+  background-color: var(--bg-primario);
 }
 </style>

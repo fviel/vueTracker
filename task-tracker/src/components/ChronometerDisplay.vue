@@ -1,7 +1,7 @@
 <!-- Componente de exibição do contador do cronômetro -->
 <template>
   <section>
-    <strong>{{ runnedTime }}</strong>
+    <strong class="display">{{ runnedTime }}</strong>
   </section>
 </template>
 
@@ -23,3 +23,9 @@ export default defineComponent({
   },
 })
 </script>
+
+<style scoped>
+.display{
+  color: var(--texto-primario);
+}
+</style>
